@@ -1,5 +1,5 @@
 import scrapy
-
+from game.items import GameItem
 
 class MinigameSpider(scrapy.Spider):
     name = "minigame"
@@ -13,14 +13,12 @@ class MinigameSpider(scrapy.Spider):
 
         li_list = response.xpath("//ul[@class='n-game cf']/li")
         for li in li_list:
-            name = li.xpath("./a/b/text()").extract_first()
-            category = li.xpath("./em/a/text()").extract_first()
-            date = li.xpath("./em/text()").extract_first()
-            # print(name, categroy, date)
-
-            dic = {
-                "name":name,
-                "category":category,
-                "date":date
-            }
-            yield dic
+            name = li.xpath("./a/b/text()").get()
+            category = li.xpath("./em/a/text()").get()
+            date = li.xpath("./em/text()").get()
+            # print(name, category, date)
+            items = GameItem()
+            items["name"] = name
+            items["category"] = category
+            items["date"] = date
+            yield items

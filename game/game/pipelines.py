@@ -5,6 +5,14 @@
 
 
 # useful for handling different item types with a single interface
+from itemadapter import ItemAdapter
+"""
+存储数据的方案：
+    1、数据存储在csv文件中
+    2、数据存储在mysql数据库中
+    3、数据存储在MongoDB数据库中
+    4、文件的存储
+"""
 import pymysql
 
 # 管道默认不生效，需要去settings里面开启管道
