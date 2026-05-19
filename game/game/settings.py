@@ -20,19 +20,17 @@ PROXIES = {
    "http": "http://121.13.165.34:9797",
    "https": "http://121.13.165.34:9797",
 }
-
+#MYSQL数据库配置
 # MYSQL 主机名
 MYSQL_HOST = "localhost"
-
 # MYSQL 用户名
 MYSQL_USER = "root"
-
+# 端口号
+MYSQL_PORT = 3306
 # MYSQL 密码
 MYSQL_PASSWORD = '123456'
-
 # 数据库名称
 MYSQL_NAME = "test"
-
 # 存放数据的表名称
 MYSQL_SHEETNAME = 'game4399_table'
 
@@ -81,7 +79,7 @@ DOWNLOAD_DELAY = 1
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "game.pipelines.GamePipeline": 300,
-   # "game.pipelines.NewsPipeline": 299,
+   "game.pipelines.GameMySQLPipeline": 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
