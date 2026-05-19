@@ -8,9 +8,8 @@ class MinigameSpider(scrapy.Spider):
 
     def parse(self, response):
         # 解析数据
-        print(response)
+        # print(response)
         # print(response.text)
-
         li_list = response.xpath("//ul[@class='n-game cf']/li")
         for li in li_list:
             name = li.xpath("./a/b/text()").get()

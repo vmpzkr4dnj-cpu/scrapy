@@ -15,6 +15,18 @@ from itemadapter import ItemAdapter
 """
 import pymysql
 
+class GamePipeline:
+    def open_spider(self):
+        self.f = open('./game.csv', 'a', encoding='utf-8', newline='')
+
+    def close_spider(self):
+        if self.f:
+            self.f.close()
+
+    def process_item(self, item, spider):
+        self.f.write(f"{item['name']}, {item['category']}, {item['date']}\n")
+        return item
+
 # 管道默认不生效，需要去settings里面开启管道
 class GameMySQLPipeline:
     def open_spider(self, spider):
@@ -65,9 +77,11 @@ class GameMySQLPipeline:
         except pymysql.Error as e:
             print(f"数据库操作失败: {e}")
             # 发生错误时，回滚事务，撤销所有未提交的更改
-            if 'self.connection' in locals() and self.connection.open:
-                self.connection.rollback()
-                print("事务已回滚。")
+            self.connection.rollback()
+            print("事务已回滚。")
+            # if 'self.connection' in locals() and self.connection.open:
+            #     self.connection.rollback()
+            #     print("事务已回滚。")
         return item
 
 # class NewsPipeline:
